@@ -1,0 +1,77 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<h2 class="section-headline"><span>My Account</span></h2>
+		</div>
+		<div class="col-md-4">
+			<img src="../../../assets/image/logo.png" class="img-fluid" alt="Responsive image" style="margin-left:20px;width:400px; margin-top:30px;z-index:1;" />
+		</div>
+		<img src="../../../assets/image/wood.png" class="img-fluid" alt="Responsive image" style="margin-top:-140px;z-index:-2;width: 95%" />
+	</div>
+
+	<hr style="position: absolute;width:85%; height:6px; background-color: #333; z-index:-1; margin-top: -170px;" />
+
+	<div class="row" style="margin-top:30px;">
+		<div class="col-md-8" style="margin-left: 30%">
+			<div class="panel-group">
+				<div class="panel panel-default panel-faq" style="border:none;">
+					<div class="panel-body" style="background-color: #ededed; margin-top:20px;">
+					        <mat-tab-group>
+                   <mat-tab label="Login" >
+                     <div style="margin-top:20px;">
+									<div *ngIf="loginError" style="color:red;margin-left: 15px;">
+										Incorrect username or password.
+									</div>
+
+									<form class="form" (ngSubmit)="onLogin()">
+										<div class="form-group">
+											<label for ="username">Username *</label>
+											<input matInput  type="text" class="form-control" id="username" name="username" placeholder="Enter your username" [(ngModel)]="credential.username" required="required" autofocus="autofocus">
+										</div>
+										<div class="form-group">
+											<label for ="password">Password *</label>
+											<input matInput type="password" class="form-control" id="password" name="password" placeholder="Enter your password"  [(ngModel)]="credential.password" required="required" autofocus="autofocus">
+										</div>
+										<button mat-raised-button type="submit" class="mat-primary">Log In</button>
+									</form>
+								</div>
+                   </mat-tab>
+                 <mat-tab label="New Account">
+								<div style="margin-top: 20px;">
+									<div class="alert alert-info" *ngIf="emailSent">An email has been sent to the email address you just registered. Please validate your email adderss and update your password info.</div>
+									<form class="form" (ngSubmit)="onNewAccount()">
+										<div class="form-group">
+											<label for="newUsername">Username *</label>&nbsp;<span *ngIf="usernameExists" style="color:red;">Username already exists. Choose a different one.</span>
+											<input type="text" class="form-control" id="newUsername" name="username" [(ngModel)]="username"  required="required" >
+											<p style="color:#828282;">Enter your username</p>
+										</div>
+										<div class="form-group">
+											<label for="email">Email Address *</label>&nbsp;<span *ngIf="emailExists" style="color:red;">Email already exists. Choose a different one.</span>
+											<input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" required="required" >
+											<p style="color:#828282;">A valid e-mail address. All e-mails from the system will be sent to this address.</p>
+										</div>
+										<button mat-raised-button type="submit" class="mat-primary">Create new account</button>
+									</form>
+								</div>
+							</mat-tab>
+              <mat-tab label="Forget Password">
+								<div style="margin-top: 20px;">
+									<div class="alert alert-info" *ngIf="emailNotExists">Email doesn't exists.</div>
+									<div class="alert alert-success" *ngIf="forgetPasswordEmailSent">Email sent.</div>
+									<form class="form" (ngSubmit)="onForgetPassword()">
+										<div class="form-group">
+											<label for="recoverEmail">Your Email Address *</label>
+											<input type="email" class="form-control" id="recoverEmail" name="recoverEmail" [(ngModel)]="recoverEmail" required="required" >
+											<p style="color:#828282;">Enter your registered email address.</p>
+										</div>
+										<button mat-raised-button type="submit" class="mat-primary">Submit</button>
+									</form>
+								</div>
+							</mat-tab>
+        </mat-tab-group>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

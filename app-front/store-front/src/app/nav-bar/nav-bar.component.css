@@ -1,0 +1,6 @@
+.navbar-nav > li > a {
+    color: white; /*Change active text color here*/
+}
+.container{
+    width: 100%;
+}

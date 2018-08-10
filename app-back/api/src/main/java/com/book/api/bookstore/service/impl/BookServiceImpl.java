@@ -1,5 +1,6 @@
 package com.book.api.bookstore.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -57,5 +58,9 @@ public class BookServiceImpl implements BookService {
 			logger.info("l'operation de suppression a echoué car l entite ne trouve pas");
 		}
 	}
+	
+
+	
+	
 
 }
