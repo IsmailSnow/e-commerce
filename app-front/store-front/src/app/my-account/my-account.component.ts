@@ -24,7 +24,7 @@ export class MyAccountComponent implements OnInit {
 
   private emailNotExists : boolean = false;
   private forgetPasswordEmailSent : boolean;
-  private recoverEmail;string;
+  private recoverEmail:string;
   
   constructor(private router:Router,private loginService:LoginService,private userService:UserService) { }
   
@@ -56,8 +56,6 @@ export class MyAccountComponent implements OnInit {
       }
     );
   }
-
-
   onNewAccount(){
     this.usernameExists=false;
     this.emailSent=false;

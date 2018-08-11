@@ -15,6 +15,7 @@ import 'hammerjs';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     HomeComponent,
     NavBarComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    MyProfileComponent
   ],
   imports: [
     BrowserModule,
