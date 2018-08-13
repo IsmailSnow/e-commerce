@@ -1,3 +1,4 @@
+import { UserPayment } from './user-payment';
 export class User {
 	public id: number;
 	public firstName: string;
@@ -8,4 +9,6 @@ export class User {
 	public phone: string;
 	public enabled: boolean;
 	public currentpassword:string;
+	public userPaymentList: UserPayment[];
+	
 }

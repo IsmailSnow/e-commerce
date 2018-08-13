@@ -1,3 +1,4 @@
+import { PaymentService } from './services/payment.service';
 import { MaterialModule } from './angularmaterial';
 import { UserService } from './services/user.service';
 import { LoginService } from './services/login.service';
@@ -18,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,9 +35,10 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     HttpModule,
     MaterialModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    
   ],
-  providers: [LoginService,UserService],
+  providers: [LoginService,UserService,PaymentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

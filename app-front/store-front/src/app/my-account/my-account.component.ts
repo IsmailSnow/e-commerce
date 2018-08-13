@@ -29,17 +29,7 @@ export class MyAccountComponent implements OnInit {
   constructor(private router:Router,private loginService:LoginService,private userService:UserService) { }
   
   ngOnInit() {
-
-    this.loginService.checkSession().subscribe(
-      res=>{
-      this.loggedIn=true;
-    }
-    ,error=>{
-      this.loggedIn=false;this.loginError=true;});
   }
-
-
-
 
   onLogin(){
     this.loginService.sendCredential(this.credential.username,this.credential.password).subscribe(
@@ -47,8 +37,8 @@ export class MyAccountComponent implements OnInit {
       console.log(res);
       localStorage.setItem("xAuthToken",res.json().token);
       this.loggedIn=true;
-      location.reload();
       this.router.navigateByUrl('/home');
+      location.reload();
       },error=>{
         this.loggedIn=false;
         this.loginError=true;
