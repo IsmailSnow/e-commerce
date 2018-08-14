@@ -1,3 +1,4 @@
+import { UserShipping } from './user-shipping';
 import { UserPayment } from './user-payment';
 export class User {
 	public id: number;
@@ -10,5 +11,7 @@ export class User {
 	public enabled: boolean;
 	public currentpassword:string;
 	public userPaymentList: UserPayment[];
+	public userShippingList:UserShipping[];
+
 	
 }

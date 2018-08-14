@@ -1,3 +1,4 @@
+import { UserShipping } from './models/user-shipping';
 import { PaymentService } from './services/payment.service';
 import { MaterialModule } from './angularmaterial';
 import { UserService } from './services/user.service';
@@ -38,7 +39,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     FormsModule,
     
   ],
-  providers: [LoginService,UserService,PaymentService],
+  providers: [LoginService,UserService,PaymentService,UserShipping],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

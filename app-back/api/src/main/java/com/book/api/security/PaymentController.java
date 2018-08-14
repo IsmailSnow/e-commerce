@@ -1,8 +1,10 @@
 package com.book.api.security;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,7 +54,7 @@ public class PaymentController {
 	@RequestMapping(value = "/getUserPaymentList")
 	public List<UserPayment> getUserPaymentList(Principal principal) {
 		User user = userService.findByUsername(principal.getName());
-		return user.getUserPaymentList();
+		return Optional.ofNullable(user.getUserPaymentList()).orElse(Collections.emptyList());
 
 	}
 }

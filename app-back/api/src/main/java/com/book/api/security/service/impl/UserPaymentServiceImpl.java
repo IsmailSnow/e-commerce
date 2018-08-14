@@ -20,11 +20,7 @@ public class UserPaymentServiceImpl implements UserPaymentService {
 	@Override
 	public UserPayment findById(Long id) {
 		Optional<UserPayment> userp = userPaymentRepository.findById(id);
-		if (userp.isPresent()) {
-			return userp.get();
-		} else {
-			throw new RuntimeException("User payment not found!");
-		}
+		return userp.orElseThrow(() -> new RuntimeException("User Payment not found"));
 	}
 
 	@Override

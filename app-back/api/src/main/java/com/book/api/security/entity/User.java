@@ -47,6 +47,9 @@ public class User implements UserDetails, Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<UserPayment> userPaymentList;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private List<UserShipping> userShippingList;
+
 	public Long getId() {
 		return id;
 	}
@@ -149,6 +152,14 @@ public class User implements UserDetails, Serializable {
 
 	public void setUserPaymentList(List<UserPayment> userPaymentList) {
 		this.userPaymentList = userPaymentList;
+	}
+
+	public List<UserShipping> getUserShippingList() {
+		return userShippingList;
+	}
+
+	public void setUserShippingList(List<UserShipping> userShippingList) {
+		this.userShippingList = userShippingList;
 	}
 
 }

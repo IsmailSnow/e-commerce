@@ -58,7 +58,7 @@ public class UserController {
 		if (userService.findByEmail(email) != null) {
 			return new ResponseEntity<>("emailExists", HttpStatus.BAD_REQUEST);
 		}
-		this.createUserToSave(email, username);
+		userService.createUserToSave(email, username);
 		return new ResponseEntity<String>("User Added Successfully", HttpStatus.OK);
 
 	}
@@ -69,39 +69,9 @@ public class UserController {
 		if (user == null) {
 			return new ResponseEntity<>("Email not found", HttpStatus.BAD_REQUEST);
 		}
-		String password = SecurityUtility.randomPassword();
-		String encyptedPassword = SecurityUtility.passwordEncoder().encode(password);
-		user.setPassword(encyptedPassword);
-		userService.saveUser(user);
-		mailContructor.constructNewUserEmailAndSend(password, user);
-		;
-
+		userService.createNewPasswordForUser(user);
 		return new ResponseEntity<String>("Password updated Successfully", HttpStatus.OK);
 
-	}
-
-	public void createUserToSave(String email, String username) {
-		try {
-			logger.info("starting creation of a new user");
-			User user = new User();
-			user.setEmail(email);
-			user.setUsername(username);
-
-			String password = SecurityUtility.randomPassword();
-			String encryptdedPassword = SecurityUtility.passwordEncoder().encode(password);
-			user.setPassword(encryptdedPassword);
-			Role role = new Role();
-			role.setRoleId(1);
-			role.setName("ROLE_USER");
-			Set<UserRole> userRoles = new HashSet<>();
-			userRoles.add(new UserRole(user, role));
-			mailContructor.constructNewUserEmailAndSend(encryptdedPassword, user);
-			userService.createUser(user, userRoles);
-			logger.info("Operation Sucess");
-		} catch (Exception e) {
-			logger.info("Operation Failed !");
-			e.printStackTrace();
-		}
 	}
 
 	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
@@ -130,29 +100,25 @@ public class UserController {
 			}
 		}
 
-		SecurityConfig securityConfig = new SecurityConfig();
-
 		BCryptPasswordEncoder bCryptPasswordEncoder = SecurityUtility.passwordEncoder();
 		String dbPassword = user.getPassword();
-		
-		if(Objects.nonNull(currentPassword))
-		if (bCryptPasswordEncoder.matches(currentPassword, dbPassword)) {
-			if (!Objects.isNull(newPassword) && !newPassword.isEmpty() && !newPassword.equals("")) {
-				user.setPassword(bCryptPasswordEncoder.encode(newPassword));	
-				user.setEmail(email);
-			}else {
-				return new ResponseEntity<String>("Choose a coorect password!", HttpStatus.BAD_REQUEST);
+
+		if (Objects.nonNull(currentPassword))
+			if (bCryptPasswordEncoder.matches(currentPassword, dbPassword)) {
+				if (!Objects.isNull(newPassword) && !newPassword.isEmpty() && !newPassword.equals("")) {
+					user.setPassword(bCryptPasswordEncoder.encode(newPassword));
+					user.setEmail(email);
+				} else {
+					return new ResponseEntity<String>("Choose a coorect password!", HttpStatus.BAD_REQUEST);
+				}
+
+			} else {
+				return new ResponseEntity<String>("Incorrect current password!", HttpStatus.BAD_REQUEST);
 			}
-
-		} else {
-			return new ResponseEntity<String>("Incorrect current password!", HttpStatus.BAD_REQUEST);
-		}
-
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
 		user.setUsername(username);
 		userService.saveUser(user);
-
 		return new ResponseEntity<String>("Updated success", HttpStatus.OK);
 
 	}
