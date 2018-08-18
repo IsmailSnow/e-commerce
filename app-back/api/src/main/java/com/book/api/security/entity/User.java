@@ -19,6 +19,7 @@ import javax.persistence.OneToOne;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.book.api.bookstore.entity.ShoppingCart;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -49,6 +50,9 @@ public class User implements UserDetails, Serializable {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<UserShipping> userShippingList;
+
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+	private ShoppingCart shoppingCart;
 
 	public Long getId() {
 		return id;
@@ -160,6 +164,14 @@ public class User implements UserDetails, Serializable {
 
 	public void setUserShippingList(List<UserShipping> userShippingList) {
 		this.userShippingList = userShippingList;
+	}
+
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
+	}
+
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
 	}
 
 }

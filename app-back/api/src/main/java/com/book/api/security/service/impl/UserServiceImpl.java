@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.book.api.bookstore.entity.ShoppingCart;
 import com.book.api.config.SecurityUtility;
 import com.book.api.security.entity.Role;
 import com.book.api.security.entity.User;
@@ -60,8 +61,12 @@ public class UserServiceImpl implements UserService {
 			for (UserRole role : userRoles) {
 				roleRepository.save(role.getRole());
 			}
-			// user.getUserRoles().addAll(userRoles);
+			user.getUserRoles().addAll(userRoles);
+			ShoppingCart shoppingCart = new ShoppingCart();
+			shoppingCart.setUser(user);
+			user.setShoppingCart(shoppingCart);
 			user.setUserPaymentList(new ArrayList<UserPayment>());
+			user.setUserShippingList(new ArrayList<UserShipping>());
 			retrieverdUser = userRepository.save(user);
 		}
 		return user;

@@ -74,7 +74,8 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatTreeModule
+    MatTreeModule,
+    MatDialogModule
   ]
 })
 export class MaterialModule { } 

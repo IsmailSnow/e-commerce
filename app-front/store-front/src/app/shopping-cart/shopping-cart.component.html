@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+      <h2 class="section-headline"><span>My Shopping Cart</span></h2>
+    </div>
+    <div class="col-md">
+      <img src="../../../assets/image/logo.png" class="img-fluid logo" alt="Responsive image" />
+    </div>
+    <img src="../../../assets/image/wood.png" class="img-fluid wood" alt="Responsive image" />
+  </div>
+  <hr class="separation" />
+  <div class="row top">
+    <div class="col text-left">
+      <a mat-raised-button class="mat-warn" routerLink="/bookList">Continue Shopping</a>
+    </div>
+    <div class="col text-right">
+      <a mat-raised-button class="mat-warn" routerLink="/bookList">Check Out</a>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div *ngIf="cartItemUpdated" class="alert alert-success">
+      Cart Item Updated Successfully!
+    </div>
+    <div *ngIf="notEnoughStock" class="alert alert-warning">
+      Oops, some of the products don't have enough stock. Please update product quantity.
+    </div>
+    <div *ngIf="emptyCart" class="alert alert-warning">
+      Oops, your cart is empty. See if you can find what you link in the bookshelf and add them to cart.
+    </div>
+  </div>
+  <div class="row middleHeader">
+    <div class="col-sm-8">
+      <h4>Products</h4>
+    </div>
+    <div class="col-sm-2">
+      <h4>Price</h4>
+    </div>
+    <div class="col-sm-2">
+      <h4>Qty</h4>
+    </div>
+    <hr class="menu" />
+  </div>
+
+  <div class="row presentation" *ngFor="let cartItem of cartItemList">
+    <div class="col-sm-2">
+      <a mat-button (click)="onSelect(cartItem.book)">
+        <img class="img-fluid" alt="Responsive image" src="{{serverPath}}/image/book/{{cartItem.book.id}}.png"/>
+      </a>
+    </div>
+    <div class="col-sm-6">
+      <a class="pointer" (click)="onSelect(cartItem.book)">
+        <h4>{{cartItem.book.title}}</h4>
+      </a>
+      <p *ngIf="cartItem.book.inStockNumber > 10" style="color:green;">In Stock</p>
+      <p *ngIf="cartItem.book.inStockNumber < 10 && cartItem.book.inStockNumber > 0" style="color:green;">Only <span>{{cartItem.book.inStockNumber}}</span> In Stock</p>
+      <p *ngIf="cartItem.book.inStockNumber == 0" style="color:darkred;">Product Unavailable</p>
+      <a class="pointer" (click)="onRemoveCartItem(cartItem)">delete</a>
+    </div>
+    <div class="col-sm-2">
+      <h5 style="color:#db3208; font-size:large;">$<span [ngClass]="{'text-strike': cartItem.book.inStockNumber == 0}">{{cartItem.book.ourPrice}}</span>
+      </h5>
+    </div>
+    <div class="col-sm-2">
+      <input hidden="hidden" name="id" [(ngModel)]="cartItem.id" />
+      <input id="cartItem.id" name="qty" [disabled]="cartItem.book.inStockNumber==0" class="form-control cartItemQty" [(ngModel)]="cartItem.qty"
+        (ngModelChange)="cartItem.toUpdate=true" />
+      <a mat-button *ngIf="cartItem.toUpdate" class="pointer mat-warn" (click)="onUpdateCartItem(cartItem)">Update</a>
+    </div>
+  </div>
+
+  <div class="row end">
+    <hr class="menu" />
+    <h4 class="col text-right"><strong style="font-size: large">Total Price (<span>{{cartItemNumber}}</span> items): </strong><span style="color:#db3208;font-size: large">$ <span>{{shoppingCart.grandTotal}}</span></span>
+    </h4>
+  </div>
+</div>

@@ -1,3 +1,6 @@
+import { CartService } from './services/cart-service.service';
+import { DataFilterPipe } from './book-list/data-filter.pipe';
+import { BookService } from './services/book.service';
 import { UserShipping } from './models/user-shipping';
 import { PaymentService } from './services/payment.service';
 import { MaterialModule } from './angularmaterial';
@@ -18,6 +21,10 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { BookListComponent } from './book-list/book-list.component';
+import {DataTableModule} from "angular-6-datatable";
+import { BookDetailComponent } from './book-detail/book-detail.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 
 
@@ -27,7 +34,11 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     HomeComponent,
     NavBarComponent,
     MyAccountComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    BookListComponent,
+    DataFilterPipe,
+    BookDetailComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
@@ -37,9 +48,9 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
-    
+    DataTableModule
   ],
-  providers: [LoginService,UserService,PaymentService,UserShipping],
+  providers: [LoginService,UserService,PaymentService,UserShipping,BookService,CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -93,7 +93,7 @@
 								<br><br>
 								<div>
 									<p *ngIf="defaultPaymentSet">Defaut Payment set successfully!</p>
-									<mat-tab-group (selectedIndexChange)="selectedBillingChange($event)" (selectedIndex)="selectedBillingTab">
+									<mat-tab-group (selectedIndexChange)="selectedBillingChange($event)" [selectedIndex]="selectedBillingTab">
 										<mat-tab label="List of Credit Cards">
 											<form (ngSubmit)="setDefaultPayment()" method="POST">
 												<table class="table">
@@ -289,7 +289,7 @@
 													<tbody>
 														<tr *ngFor="let userShipping of userShippingList">
 															<td>
-																<input type="radio" name="defaultUserShippingId" [(ngModel)]="defaultUserShippingId" [value]="userShipping.id" />
+																<input type="radio" name="defautltUserShippingId" [(ngModel)]="defautltUserShippingId" [value]="userShipping.id" />
 																<span>default</span>
 															</td>
 															<td>{{userShipping.userShippingStreet1}}, {{userShipping.userShippingStreetCity}}, {{userShipping.userShippingState}}</td>
@@ -304,7 +304,7 @@
 											</form>
 										</mat-tab>
 										<mat-tab label="Add(Update) Shipping Address">
-											<form (ngSubmit)="onNewShipping()" method="post">
+											<form (ngSubmit)="onNewShipping()" method="post" #shippingFrom="ngForm">
 												<div class="bg-info" *ngIf="updateUserShippingInfo">User info updated.</div>
 												<input hidden="hidden" name="id" [(ngModel)]="userShipping.id" />
 												<div class="form-group">
@@ -347,7 +347,7 @@
 													</div>
 												</div>
 												<hr />
-												<button mat-raised-button type="submit" class="mat-primary">Save All</button>
+												<button mat-raised-button [disabled]="shippingFrom.form.invalid" type="submit" class="mat-primary">Save All</button>
 											</form>
 										</mat-tab>
 									</mat-tab-group>

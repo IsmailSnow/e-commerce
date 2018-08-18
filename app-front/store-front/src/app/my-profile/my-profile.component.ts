@@ -9,6 +9,7 @@ import { LoginService } from './../services/login.service';
 import { User } from './../models/user';
 import { AppConst } from './../constants/app-const';
 import { Component, OnInit } from '@angular/core';
+import {MatDialog, MatDialogConfig} from "@angular/material";
 
 
 @Component({
@@ -49,8 +50,8 @@ export class MyProfileComponent implements OnInit {
   private stateList: string[] = [];
   private cardAddedSuccess: boolean = false;
 
-  constructor(private loginService: LoginService, private userService: UserService, private router: Router
-    , private paymentService: PaymentService, private shippingService: ShippingService) { }
+  constructor(private loginService: LoginService, private userService: UserService, private router: Router,
+   private paymentService: PaymentService, private shippingService: ShippingService) { }
 
   ngOnInit() {
     this.loginService.checkSession().subscribe(
@@ -80,9 +81,7 @@ export class MyProfileComponent implements OnInit {
   }
 
 
-  selectedShippingChange(val: number) {
-    this.selectedShippingTab = val;
-  }
+  
 
   onNewShipping() {
     this.shippingService.newShipping(this.userShipping).subscribe(
@@ -195,11 +194,14 @@ export class MyProfileComponent implements OnInit {
   selectedBillingChange(val: number) {
     this.selectedBillingTab = val;
   }
+  selectedShippingChange(val: number) {
+    this.selectedShippingTab = val;
+  }
 
   onUpdatePayment(payment: UserPayment) {
+    this.selectedBillingTab = 1;
     this.userPayment = payment;
     this.userBilling = payment.userBilling;
-    this.selectedBillingTab = 1;
   }
   onRemovePayment(id: number) {
     this.paymentService.removePayment(id).subscribe(
