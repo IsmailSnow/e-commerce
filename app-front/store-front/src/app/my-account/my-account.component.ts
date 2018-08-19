@@ -1,7 +1,7 @@
 import { UserService } from './../services/user.service';
 import { LoginService } from './../services/login.service';
 import { AppConst } from './../constants/app-const';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Output ,EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./my-account.component.css']
 })
 export class MyAccountComponent implements OnInit {
+
 
   private servicePath = AppConst.serverPath;
   private loginError:boolean=false;
@@ -34,11 +35,10 @@ export class MyAccountComponent implements OnInit {
   onLogin(){
     this.loginService.sendCredential(this.credential.username,this.credential.password).subscribe(
       res=>{
-      console.log(res);
       localStorage.setItem("xAuthToken",res.json().token);
       this.loggedIn=true;
-      this.router.navigateByUrl('/home');
       location.reload();
+      this.router.navigate(['/home']);
       },error=>{
         this.loggedIn=false;
         this.loginError=true;

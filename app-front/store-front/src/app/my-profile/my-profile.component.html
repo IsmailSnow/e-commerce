@@ -33,6 +33,9 @@
 									<div class="alert alert-success" *ngIf="updateSuccess">
 										<strong>Update Success!</strong>
 									</div>
+									<div class="alert alert-success" *ngIf="!updateSuccess">
+										<strong>Update Failed!</strong>
+									</div>
 								</div>
 								<form (ngSubmit)="onUpdateUserInfo()" #updateForm="ngForm">
 									<input type="hidden" name="id" [(ngModel)]="user.id" />
@@ -86,7 +89,7 @@
 										<input type="password" placeholder="Confirm your new password" class="form-control" id="txtConfirmPassword" name="txtNewPassword"
 										/>
 									</div>
-									<button mat-raised-button type="submit" [disabled]="!updateForm.form.invalid" class="mat-primary" id="udpateuserInfoButton">Save</button>
+									<button mat-raised-button type="submit" [disabled]="updateForm.form.invalid" class="mat-primary" id="udpateuserInfoButton">Save</button>
 								</form>
 							</mat-tab>
 							<mat-tab label="Payment">

@@ -9,7 +9,7 @@ import { LoginService } from './../services/login.service';
 import { User } from './../models/user';
 import { AppConst } from './../constants/app-const';
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogConfig} from "@angular/material";
+import { MatDialog, MatDialogConfig } from "@angular/material";
 
 
 @Component({
@@ -26,7 +26,7 @@ export class MyProfileComponent implements OnInit {
   private loggedIn: boolean;
   private credential = { 'username': '', 'password': '' };
   private user: User = new User();
-  private updateSuccess: boolean;
+  private updateSuccess: boolean = false;
   private newPassword: string;
   private incorrectPassword: boolean;
   private currentPassword: string;
@@ -51,11 +51,25 @@ export class MyProfileComponent implements OnInit {
   private cardAddedSuccess: boolean = false;
 
   constructor(private loginService: LoginService, private userService: UserService, private router: Router,
-   private paymentService: PaymentService, private shippingService: ShippingService) { }
+    private paymentService: PaymentService, private shippingService: ShippingService) { }
 
   ngOnInit() {
     this.loginService.checkSession().subscribe(
       res => {
+        this.getCurrentUser();
+        this.userBilling.userBillingState = "";
+        this.userPayment.type = "";
+        this.userPayment.expiryMonth = "";
+        this.userPayment.expiryYear = "";
+        this.userPayment.userBilling = this.userBilling;
+        this.defaultPaymentSet = false;
+        this.userShipping.userShippingState = "";
+        this.defaultShippingSet = false;
+
+
+        for (let s in AppConst.usStates) this.stateList.push(s);
+
+
 
       }, error => {
         console.log(error.text());
@@ -66,29 +80,18 @@ export class MyProfileComponent implements OnInit {
 
       }
     );
-    this.getCurrentUser();
-    this.userBilling.userBillingState = "";
-    this.userPayment.type = "";
-    this.userPayment.expiryMonth = "";
-    this.userPayment.expiryYear = "";
-    this.userPayment.userBilling = this.userBilling;
-    this.defaultPaymentSet = false;
-    this.userShipping.userShippingState="";
-    this.defaultShippingSet=false;
 
-
-    for (let s in AppConst.usStates) this.stateList.push(s);
   }
 
 
-  
+
 
   onNewShipping() {
     this.shippingService.newShipping(this.userShipping).subscribe(
       res => {
         this.getCurrentUser();
         this.selectedShippingTab = 0;
-        this.userShipping= new UserShipping();
+        this.userShipping = new UserShipping();
       },
       error => {
         console.log(error.text());
@@ -147,11 +150,12 @@ export class MyProfileComponent implements OnInit {
       res => {
         console.log(res.json());
         this.user = res.json();
+        console.log(this.user);
         this.dataFeteched = true;
         this.userPaymentList = this.user.userPaymentList;
-        this.userShippingList=this.user.userShippingList;
-        
-        
+        this.userShippingList = this.user.userShippingList;
+
+
         for (let index in this.userPaymentList) {
           if (this.userPaymentList[index].defaultPayment) {
             this.defaultUserPaymentId = this.userPaymentList[index].id;

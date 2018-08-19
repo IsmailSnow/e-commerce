@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { LoginService } from './../services/login.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input} from '@angular/core';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,16 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
 
-  private loggedIn = false;
+  private loggedIn:boolean=false;
 
 
   constructor(private loginService:LoginService,private router:Router) { }
 
   ngOnInit() {
     this.loginService.checkSession().subscribe(
-      res=>{
-        this.loggedIn=true;
-      },
+      res=>{this.loggedIn=true;},
       error=>{
         this.loggedIn=false;
       }
@@ -30,10 +28,12 @@ export class NavBarComponent implements OnInit {
       res=>{
            localStorage.clear();
            this.router.navigateByUrl("/myAccount");
+           this.loggedIn=false;
       },error=>{
         console.log(error);
       }
     )
   }
+
 
 }

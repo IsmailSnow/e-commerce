@@ -18,15 +18,17 @@
     margin-top: -165px;
     margin-left: -15px;
 }
-.second{
-    margin-top: 120px;
-}
-.panel-default{
-    border :5px solid #dee2e6 !important;
-    margin-left: 130px;
-    margin-bottom: 100px;
+.forOrder{
+    border :2px solid #dee2e6 !important;
+    margin-top: 30px;
 }
 .panel-body{
-    margin-left: 30px;
+    margin-bottom: 10px;
     margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.forOrder1{
+    border :2px solid #dee2e6 !important;
+    margin-top: 30px;
 }

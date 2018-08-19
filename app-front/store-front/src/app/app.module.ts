@@ -1,3 +1,5 @@
+import { OrderService } from './services/order.service';
+import { CheckoutService } from './services/checkout.service';
 import { CartService } from './services/cart-service.service';
 import { DataFilterPipe } from './book-list/data-filter.pipe';
 import { BookService } from './services/book.service';
@@ -25,6 +27,7 @@ import { BookListComponent } from './book-list/book-list.component';
 import {DataTableModule} from "angular-6-datatable";
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { OrderComponent } from './order/order.component';
 
 
 
@@ -38,7 +41,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     BookListComponent,
     DataFilterPipe,
     BookDetailComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     FormsModule,
     DataTableModule
   ],
-  providers: [LoginService,UserService,PaymentService,UserShipping,BookService,CartService],
+  providers: [LoginService,UserService,PaymentService,UserShipping,BookService,CartService,CheckoutService,OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

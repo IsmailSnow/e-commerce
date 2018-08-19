@@ -1,3 +1,5 @@
+import { OrderComponent } from './order/order.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { BookListComponent } from './book-list/book-list.component';
@@ -9,6 +11,7 @@ import { AppComponent } from './app.component';
 
 
 export const appRoutes: Routes = [
+    { path: 'checkout', component: OrderComponent },
     { path: 'shoppingCart', component: ShoppingCartComponent   },
     { path: 'bookDetail/:id', component: BookDetailComponent   },
     { path: 'bookList', component: BookListComponent   },
