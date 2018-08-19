@@ -33,16 +33,17 @@ export class MyAccountComponent implements OnInit {
   }
 
   onLogin(){
+    console.log(this.credential.password);
     this.loginService.sendCredential(this.credential.username,this.credential.password).subscribe(
       res=>{
       localStorage.setItem("xAuthToken",res.json().token);
       this.loggedIn=true;
       location.reload();
       this.router.navigate(['/home']);
-      },error=>{
+    },error=>{
         this.loggedIn=false;
         this.loginError=true;
-        console.log(error);
+   
       }
     );
   }

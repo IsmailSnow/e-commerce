@@ -28,7 +28,7 @@ public interface UserService {
 
 	void createNewPasswordForUser(User user);
 
-	void createUserToSave(String name, String email);
+	void createUserToSave(String name, String email, String password);
 
 	void updateUserShipping(UserShipping userShipping, User user);
 

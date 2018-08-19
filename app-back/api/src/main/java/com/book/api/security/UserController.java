@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,13 +53,11 @@ public class UserController {
 		String username = mapper.get("username");
 		String email = mapper.get("email");
 
-		if (userService.findByUsername(username) == null) {
-			return new ResponseEntity<>("usernameExists", HttpStatus.BAD_REQUEST);
+		if (Objects.isNull(username) || Objects.isNull(email)) {
+			return new ResponseEntity<>("username or email is must not be empty", HttpStatus.BAD_REQUEST);
 		}
-		if (userService.findByEmail(email) != null) {
-			return new ResponseEntity<>("emailExists", HttpStatus.BAD_REQUEST);
-		}
-		userService.createUserToSave(email, username);
+		String password = UUID.randomUUID().toString();
+		userService.createUserToSave(email, username,password);
 		return new ResponseEntity<String>("User Added Successfully", HttpStatus.OK);
 
 	}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -54,7 +55,10 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User createUser(User user, Set<UserRole> userRoles) {
 
+		
 		User retrieverdUser = userRepository.findByEmail(user.getEmail());
+		
+	
 		if (retrieverdUser != null) {
 			logger.info("User with username {} already exist , no PostConstruct is applied", user.getUsername());
 		} else {
@@ -135,14 +139,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void createUserToSave(String email, String username) {
+	public void createUserToSave(String email, String username,String password) {
 		try {
 			logger.info("starting creation of a new user");
 			User user = new User();
 			user.setEmail(email);
 			user.setUsername(username);
-
-			String password = SecurityUtility.randomPassword();
 			String encryptdedPassword = SecurityUtility.passwordEncoder().encode(password);
 			user.setPassword(encryptdedPassword);
 			Role role = new Role();
@@ -150,7 +152,7 @@ public class UserServiceImpl implements UserService {
 			role.setName("ROLE_USER");
 			Set<UserRole> userRoles = new HashSet<>();
 			userRoles.add(new UserRole(user, role));
-			mailContructor.constructNewUserEmailAndSend(encryptdedPassword, user);
+			mailContructor.constructNewUserEmailAndSend(password, user);
 			createUser(user, userRoles);
 			logger.info("Operation Sucess");
 		} catch (Exception e) {
