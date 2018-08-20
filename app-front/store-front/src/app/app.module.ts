@@ -28,6 +28,7 @@ import {DataTableModule} from "angular-6-datatable";
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { OrderComponent } from './order/order.component';
+import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 
 
@@ -42,7 +43,8 @@ import { OrderComponent } from './order/order.component';
     DataFilterPipe,
     BookDetailComponent,
     ShoppingCartComponent,
-    OrderComponent
+    OrderComponent,
+    OrderSummaryComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { OrderComponent } from './order/order.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
@@ -11,6 +12,7 @@ import { AppComponent } from './app.component';
 
 
 export const appRoutes: Routes = [
+    { path: 'orderSummary', component: OrderSummaryComponent },
     { path: 'checkout', component: OrderComponent },
     { path: 'shoppingCart', component: ShoppingCartComponent   },
     { path: 'bookDetail/:id', component: BookDetailComponent   },

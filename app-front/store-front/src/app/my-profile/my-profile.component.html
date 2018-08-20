@@ -44,13 +44,13 @@
 										<div class="row">
 											<div class="col-6">
 												<label for="firstName">First Name</label>
-												<input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter your firstname" [(ngModel)]="user.firstName" required
-												/>
+												<input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter your firstname" [(ngModel)]="user.firstName"
+												 required />
 											</div>
 											<div class="col-6">
 												<label for="lastName">Last Name</label>
-												<input type="text" class="form-control" placeholder="Enter your lastName" id="lastName" name="lastName" [(ngModel)]="user.lastName" required
-												/>
+												<input type="text" class="form-control" placeholder="Enter your lastName" id="lastName" name="lastName" [(ngModel)]="user.lastName"
+												 required />
 											</div>
 										</div>
 									</div>
@@ -58,15 +58,15 @@
 										<label for="username">
 												Username *
 											</label>&nbsp;<span *ngIf="usernameExists" class="responseAnswer">Username already exists. Choose a different one.</span>
-										<input required type="text" class="form-control" placeholder="ENter your username" id="username" name="username"
-										 [(ngModel)]="user.username" />
+										<input required type="text" class="form-control" placeholder="ENter your username" id="username" name="username" [(ngModel)]="user.username"
+										/>
 									</div>
 									<div class="form-group">
 										<label for="currentPassword">
 												Current Password
 											</label>
-										<input type="password" class="form-control" placeholder="Enter your current password" id="password" name="password" [(ngModel)]="currentPassword" required
-										/>
+										<input type="password" class="form-control" placeholder="Enter your current password" id="password" name="password" [(ngModel)]="currentPassword"
+										 required />
 									</div>
 									<div class="form-group">
 										<label for="email">
@@ -86,11 +86,163 @@
 										<label for="txtConfirmPassword">
 												Confirm New Password *
 											</label>
-										<input type="password" placeholder="Confirm your new password" class="form-control" id="txtConfirmPassword" name="txtNewPassword" required
-										/>
+										<input type="password" placeholder="Confirm your new password" class="form-control" id="txtConfirmPassword" name="txtNewPassword"
+										 required />
 									</div>
 									<button mat-raised-button type="submit" [disabled]="updateForm.form.invalid" class="mat-primary" id="udpateuserInfoButton">Save</button>
 								</form>
+							</mat-tab>
+							<mat-tab label="Orders">
+								<div class="panel-group">
+									<div class="panel panel-default panel-faq" style="border: none;">
+										<div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
+											<table class="table table-sm table-inverse">
+												<thead>
+													<tr>
+														<th>Order Date</th>
+														<th>Order Number</th>
+														<th>Total</th>
+														<th>Status</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr *ngFor="let order of orderList">
+														<td>
+															<a class="pointer" (click)="onDisplayOrder(order)"><span>{{order.orderDate}}</span></a>
+														</td>
+														<td>{{order.id}}</td>
+														<td>{{order.orderTotal}}</td>
+														<td>{{order.orderStatus}}</td>
+													</tr>
+												</tbody>
+											</table>
+											<div *ngIf="displayOrderDetail">
+												<div class="row">
+													<div class="col-sm-12">
+														<div class="text-center">
+															<h2>Order Detail for purchase #<span>{{order.id}}</span></h2>
+														</div>
+														<hr/>
+														<div class="row">
+															<div class="col">
+																<div class="panel panel-default height">
+																	<div class="panel-heading"><strong>Billing Details</strong>
+																	</div>
+																	<div class="panel-body">
+																		<span>{{order.billingAddress.billingAddressName}}</span>
+																		<br/>
+																		<span>{{order.billingAddress.billingAddressStreet1}} {{order.billingAddress.billingAddressStreet2}}</span>
+																		<br/>
+																		<span>{{order.billingAddress.billingAddressCity}}</span>
+																		<br/>
+																		<span>{{order.billingAddress.billingAddressState}}</span>
+																		<br/>
+																		<span>{{order.billingAddress.billingAddressZipcode}}</span>
+																		<br/>
+																	</div>
+																</div>
+															</div>
+															<div class="col">
+																<div class="panel panel-default height">
+																	<div class="panel-heading"><strong>Payment Information</strong>
+																	</div>
+																	<div class="panel-body">
+																		<span>{{order.payment.holderName}}</span>
+																		<br/> Visa
+																		<br/>
+																		<span>{{order.payment.cardNumber}}</span>
+																		<br/>
+																		<span>Exp Date:</span> <span>{{order.payment.expiryMonth}}</span>/<span>{{order.payment.expiryYear}}</span>
+																		<br/>
+																	</div>
+																</div>
+															</div>
+															<div class="col">
+																<div class="panel panel-default height">
+																	<div class="panel-heading"><strong>Shipping Address</strong>
+																	</div>
+																	<div class="panel-body">
+																		<span>{{order.shippingAddress.shippingAddressName}}</span>
+																		<br/>
+																		<span>{{order.shippingAddress.shippingAddressStreet1}}' '{{order.shippingAddress.shippingAddressStreet2}}</span>
+																		<br/>
+																		<span>{{order.shippingAddress.shippingAddressCity}}</span>
+																		<br/>
+																		<span>{{order.shippingAddress.shippingAddressState}}</span>
+																		<br/>
+																		<span>{{order.shippingAddress.shippingAddressZipcode}}</span>
+																		<br/>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-12">
+														<div class="panel panel-default">
+															<div class="panel-heading">
+																<h3 class="text-center"><strong>Order summary</strong></h3>
+															</div>
+															<div class="panel-body">
+																<div class="table-responsive">
+																	<table class="table table-condensed">
+																		<thead>
+																			<tr>
+																				<td><strong>Item Name</strong></td>
+																				<td class="text-center"><strong>Item Price</strong></td>
+																				<td class="text-center"><strong>Item Quantity</strong>
+																				</td>
+																				<td class="text-right"><strong>Total</strong></td>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr *ngFor="let cartItem of cartItemList">
+																				<td>{{cartItem.book.title}}
+																				</td>
+																				<td class="text-center">{{cartItem.book.ourPrice}}
+																				</td>
+																				<td class="text-center">
+																					{{cartItem.qty}}
+																				</td>
+																				<td class="text-right">{{cartItem.subtotal}}
+																				</td>
+																			</tr>
+																			<tr>
+																				<td class="highrow"></td>
+																				<td class="highrow"></td>
+																				<td class="highrow text-center">
+																					<strong>Subtotal</strong></td>
+																				<td class="highrow text-right">{{order.orderTotal}}
+																				</td>
+																			</tr>
+																			<tr>
+																				<td class="emptyrow"></td>
+																				<td class="emptyrow"></td>
+																				<td class="emptyrow text-center"><strong>Tax</strong>
+																				</td>
+																				<td class="emptyrow text-right">{{order.orderTotal*0.06}}
+																				</td>
+																			</tr>
+																			<tr>
+																				<td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
+																				<td class="emptyrow"></td>
+																				<td class="emptyrow text-center"><strong>Total</strong>
+																				</td>
+																				<td class="emptyrow text-right">{{order.orderTotal*1.06}}
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</mat-tab>
 							<mat-tab label="Payment">
 								<br><br>

@@ -132,7 +132,7 @@ export class OrderComponent implements OnInit {
             "order": JSON.stringify(this.order)
           }
         };
-
+        // in navigatin extras we pass the order to get in when we use the order-summary
         this.router.navigate(['/orderSummary'], navigationExtras);
       },
       error => {

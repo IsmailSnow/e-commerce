@@ -1,3 +1,5 @@
+import { OrderService } from './../services/order.service';
+import { Order } from './../models/order';
 import { ShippingService } from './../services/shipping.service';
 import { UserShipping } from './../models/user-shipping';
 import { UserBilling } from './../models/user-billing';
@@ -50,13 +52,27 @@ export class MyProfileComponent implements OnInit {
   private stateList: string[] = [];
   private cardAddedSuccess: boolean = false;
 
+  private orderList:Order[]=[];
+  private order:Order = new Order();
+  private displayOrderDetail:boolean;
+
+
+
+
   constructor(private loginService: LoginService, private userService: UserService, private router: Router,
-    private paymentService: PaymentService, private shippingService: ShippingService) { }
+    private paymentService: PaymentService, private shippingService: ShippingService,private orderService:OrderService) { }
 
   ngOnInit() {
     this.loginService.checkSession().subscribe(
       res => {
         this.getCurrentUser();
+        this.orderService.getOrderList().subscribe(
+          res=>{
+          this.orderList=res.json();
+          },error=>{
+            console.log(res.text())
+          }
+        )
         this.userBilling.userBillingState = "";
         this.userPayment.type = "";
         this.userPayment.expiryMonth = "";
@@ -83,8 +99,11 @@ export class MyProfileComponent implements OnInit {
 
   }
 
-
-
+  onDisplayOrder(order:Order){
+    console.log(order);
+    this.order=order;
+    this.displayOrderDetail=true;
+  }
 
   onNewShipping() {
     this.shippingService.newShipping(this.userShipping).subscribe(
