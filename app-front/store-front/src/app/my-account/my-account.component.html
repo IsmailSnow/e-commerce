@@ -59,7 +59,7 @@
 							<mat-tab label="Forget Password">
 								<div class="header">
 									<div class="alert alert-info" *ngIf="emailNotExists">Email doesn't exists.</div>
-									<div class="alert alert-success" *ngIf="forgetPasswordEmailSent">Email sent.</div>
+									<div class="alert alert-success" *ngIf="emailSent">Email sent.</div>
 									<form class="form" (ngSubmit)="onForgetPassword()" #passForm="ngForm">
 										<div class="form-group">
 											<label for="recoverEmail">Your Email Address *</label>

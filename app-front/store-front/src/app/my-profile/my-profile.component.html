@@ -44,12 +44,12 @@
 										<div class="row">
 											<div class="col-6">
 												<label for="firstName">First Name</label>
-												<input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter your firstname" [(ngModel)]="user.firstName"
+												<input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter your firstname" [(ngModel)]="user.firstName" required
 												/>
 											</div>
 											<div class="col-6">
 												<label for="lastName">Last Name</label>
-												<input type="text" class="form-control" placeholder="Enter your lastName" id="lastName" name="lastName" [(ngModel)]="user.lastName"
+												<input type="text" class="form-control" placeholder="Enter your lastName" id="lastName" name="lastName" [(ngModel)]="user.lastName" required
 												/>
 											</div>
 										</div>
@@ -58,21 +58,21 @@
 										<label for="username">
 												Username *
 											</label>&nbsp;<span *ngIf="usernameExists" class="responseAnswer">Username already exists. Choose a different one.</span>
-										<input required="required" type="text" class="form-control" placeholder="ENter your username" id="username" name="username"
+										<input required type="text" class="form-control" placeholder="ENter your username" id="username" name="username"
 										 [(ngModel)]="user.username" />
 									</div>
 									<div class="form-group">
 										<label for="currentPassword">
 												Current Password
 											</label>
-										<input type="password" class="form-control" placeholder="Enter your current password" id="password" name="password" [(ngModel)]="currentPassword"
+										<input type="password" class="form-control" placeholder="Enter your current password" id="password" name="password" [(ngModel)]="currentPassword" required
 										/>
 									</div>
 									<div class="form-group">
 										<label for="email">
 												Email Address *
 											</label>&nbsp;<span *ngIf="emailExists" placeholder="Enter your email" class="responseAnswer">Email already exists. Choose a different one.</span>
-										<input required="required" type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" />
+										<input required type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" />
 										<p>A valid e-mail address. All e-mails from the system will be sent to this address.</p>
 									</div>
 									<div class="form-group">
@@ -80,13 +80,13 @@
 												New Password *
 											</label>&nbsp;<span id="checkPasswordMatch" class="responseAnswer"></span>
 										<input type="password" class="form-control" placeholder="Enter your new password" id="txtNewPassword" name="txtNewPassword"
-										 [(ngModel)]="newPassword" />
+										 [(ngModel)]="newPassword" required />
 									</div>
 									<div class="form-group">
 										<label for="txtConfirmPassword">
 												Confirm New Password *
 											</label>
-										<input type="password" placeholder="Confirm your new password" class="form-control" id="txtConfirmPassword" name="txtNewPassword"
+										<input type="password" placeholder="Confirm your new password" class="form-control" id="txtConfirmPassword" name="txtNewPassword" required
 										/>
 									</div>
 									<button mat-raised-button type="submit" [disabled]="updateForm.form.invalid" class="mat-primary" id="udpateuserInfoButton">Save</button>

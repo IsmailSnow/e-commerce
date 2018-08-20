@@ -79,6 +79,7 @@ export class MyAccountComponent implements OnInit {
   			console.log(error.text());
   			let errorMessage = error.text();
   			if(errorMessage==="emailExists") this.emailExists=true;
+        if(errorMessage==="Email not found") this.emailNotExists=true;
   		}
   	);
   }
