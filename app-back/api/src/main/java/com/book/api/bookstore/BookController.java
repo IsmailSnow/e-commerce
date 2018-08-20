@@ -115,4 +115,12 @@ public class BookController {
 		bookService.removeOne(Long.parseLong(id));
 		return new ResponseEntity<String>("Remove Sucess", HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/searchBook",method=RequestMethod.POST)
+	public List<Book> searchBook(@RequestBody String keyword){
+		return bookService.findAllByTitle(keyword);
+	}
+	
+	
+	
 }

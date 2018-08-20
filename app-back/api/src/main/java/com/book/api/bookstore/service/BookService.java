@@ -15,4 +15,5 @@ public interface BookService {
 	List<Book> findAllByTitle(String title);
 	
 	void removeOne(Long id);
+	
 }

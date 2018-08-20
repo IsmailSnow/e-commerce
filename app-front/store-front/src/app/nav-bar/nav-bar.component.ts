@@ -1,4 +1,6 @@
-import { Router } from '@angular/router';
+import { Book } from './../models/book';
+import { BookService } from './../services/book.service';
+import { Router, NavigationExtras } from '@angular/router';
 import { LoginService } from './../services/login.service';
 import { Component, OnInit ,Input} from '@angular/core';
 
@@ -10,9 +12,10 @@ import { Component, OnInit ,Input} from '@angular/core';
 export class NavBarComponent implements OnInit {
 
   private loggedIn:boolean=false;
+  private keyword:string;
+  private bookList:Book[]=[];
 
-
-  constructor(private loginService:LoginService,private router:Router) { }
+  constructor(private loginService:LoginService,private router:Router,private bookService:BookService) { }
 
   ngOnInit() {
     this.loginService.checkSession().subscribe(
@@ -29,6 +32,24 @@ export class NavBarComponent implements OnInit {
            localStorage.clear();
            this.router.navigateByUrl("/myAccount");
            this.loggedIn=false;
+      },error=>{
+        console.log(error);
+      }
+    )
+  }
+
+  onSearchByTitle(){
+    this.bookService.searchBook(this.keyword).subscribe(
+      res=>{
+        this.bookList=res.json();
+        console.log(this.bookList);
+        let navigationExtras :NavigationExtras ={
+          queryParams :{
+            "bookList" :JSON.stringify(this.bookList)
+          }
+        };
+        this.router.navigate(['/bookList'],navigationExtras);
+
       },error=>{
         console.log(error);
       }
